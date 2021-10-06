@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/model.css') }}">
+    {% endblock %}
+
+    {% block content %}
+    <!-- <p>Search for page of chars</p>
+    <p>Enter the name of an characters (ex: Naruto) to search</p>
+    <form action="/characters" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Search Characters">
+    </form> -->
+<body id="charmodel">
+    <div class="container text-center my-3">
+        <div class="container scrim">
+            <h1 style="border-bottom: 2px white solid;">Characters</h1>
+            <p>Through their traits, struggles, and emotions portrayed on screen, the characters of an anime are capable of bridging the divide between the audience and the many exotic worlds and thrilling stories in which animes take place. The strength of anime characters and their ability to make audiences relate to them despite a language barrier are the reason that anime has become the global phenomenon that it is today. </p>
+        </div>
+
+        <div class="container">
+            <div class="col scrim">
+        <form action="/characters" method="POST">
+            <br>
+            <div class="search_wrap">
+                <input type="text" placeholder="Search.." name="search_string" value="{{search_string}}" id="char_search_term">
+                <input type="submit" value="Search Characters" id="charsearchbutton">
+            </div>
+            <br>
+            <select name="sort">
+                {% for sort in sorts %}
+                <option value="{{ sort[0] }}" {% if sort[0] == sort_method %} selected {% endif %}>{{ sort[1] }}</option>
+                {% endfor %}
+            </select>
+            <br />
+            <br />
+
+            <div class="dropdown searchbar_div filterseparator" data-dropup-auto="false">
+                <button data-display="static" class="btn btn-info dropdown-toggle" type="button" 
+                        id="dropdownMenu1" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                  Language
+                </button>
+                <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                {% for language,remember in languages %}
+                  <li >
+                    <label>
+                      <input type="checkbox" name="languages" value="{{language}}" onClick = "onlyOne(this)" {% if (remember == 1) %} checked {% endif %}> {{language}}
+                      <span class="checkmark"></span>
+                    </label>
+                  </li>
+                {% endfor %}  
+                </ul>
+            </div>
+            
+            <div class="dropdown searchbar_div" data-dropup-auto="false">
+                <button class="btn btn-info dropdown-toggle" type="button" 
+                        id="dropdownMenu1" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                  Field
+                </button>
+                <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                {% for field, remember in fields %}
+                    <li >
+                        <label>
+                        <input type="checkbox" name="fieldfilter" value="{{ field[0] }}" {% if (remember == 1) %} checked {% endif %}> {{field[1]}}
+                        <span class="checkmark"></span>
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="slidecontainer searchbar_div">
+                <input type="range" min="0" max="70" value="{{score_filter}}" class="slider" id="myRange" name="score">
+                <p>Titles appeared in: <span id="demo"></span></p>
+            </div>
+
+            <script>
+                var slider = document.getElementById("myRange");
+                var output = document.getElementById("demo");
+                output.innerHTML = slider.value; // Display the default slider value
+        
+                // Update the current slider value (each time you drag the slider handle)
+                slider.oninput = function() {
+                    output.innerHTML = this.value;
+                }
+            </script>
+
+            <script>
+                function onlyOne(checkbox) {
+                    var checkboxes = document.getElementsByName('languages')
+                    checkboxes.forEach((item) => {
+                        if (item !== checkbox) item.checked = false
+                })
+            }</script>
+            
+
+            <div class="searchbar_div">
+            {% for direction, remember in directional %}
+            <div class="form-check" style="text-align: left;">
+                <input class="form-check-input" type="radio" name="directional" id="directional{{loop.index}}" value="{{direction}}"  {% if remember == 1 %} checked {% endif %}>
+                <label class="form-check-label" for="directional{{loop.index}}">{{ direction }}</label>
+            </div>
+            {% endfor %}
+            </div>
+
+        </form>
+    </div>
+        </div>
+        <br>
+
+
+
+        <!--- <h1 class="scrim" style="color: white; border-bottom: 2px white solid;">Popular Characters</h1> --->
+
+        <ul class="pagination justify-content-center" data-page-size="9">
+            <li class="page-item"><a class="page-link" href="#" rel="prev">Prev</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" rel="next">Next</a></li>
+        </ul>
+    </div>
+
+    <div class="container text-center mt-3">
+        <div class="row" >
+            <div class="card-deck" style="align-items: center; justify-content: center; display: flex;">
+                {% for char in popularList %}
+                <div class="card mb-4" style="min-width: 22rem; max-width: 22rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{ char['image']['large'] }}" style="width: 100%; height: 22rem;" alt="Card image">
+                        <h4 class="card-title" style="height:56px; justify-content: center; align-items: center; display: flex;">{{ char['name']['full'] }}</h4>
+                        <ul class="list-group list-group-flush">
+                            <!-- {% for i in range(3) %}
+                                {% if i < char['parsed_description']|length %}
+                                <li class="list-group-item">{{ char['parsed_description'][i][0] }} {{ char['parsed_description'][i][1] }}</li>
+                                {% endif %}
+                            {% endfor %} -->
+                            {% if char['media']['edges'][0]['voiceActors']|length > 0 %}
+                            <li class="list-group-item" style="height:73px; align-items: center; display: flex;">Voice Actor:  {{ char['media']['edges'][0]['voiceActors'][0]['name']['full'] }} ({{ char['media']['edges'][0]['voiceActors'][0]['language'] }})</li>
+                            {% endif %}
+                            <li class="list-group-item">No. of Anime titles appeared in: {{ char['animeography_length'] }} </li>
+                            <li class="list-group-item">No. of Manga titles appeared in: {{ char['mangaography_length'] }} </li>
+
+                        </ul>
+                        <!--<a href="/characters/{{ char['id'] }}" class="btn btn-primary stretched-link">Go to {{ char['name']['full'] }}'s page</a>-->
+                        <a href="/characters/{{ char['id'] }}" class="btn btn-primary stretched-link">Learn More</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if search != 0  %}
+
+    {% for char in charList %}
+    <a href="/characters/{{ char['id'] }}">{{ char['name']['full'] }} </a>
+    <br>
+    <img src={{ char['image']['medium']}} alt="my image">
+    <br>
+    {% endfor %}
+
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/model.js') }}"></script>
+</body>
+    {% endblock %}

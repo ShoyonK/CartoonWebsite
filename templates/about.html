@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/instance.css') }}">
+    {% endblock %}
+
+    {% block content %}
+<body id="about">
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-12">
+                <h1 style="border-bottom: 2px white solid;">About</h1>
+                <p>Team E14’s website allows you to access the most popular anime, characters, and studios with ease. Our website currently has a homepage that lets you easily navigate to the anime, character, staff, and studio listings on our website with our navbar. On each of these pages, we have a carousel listing of cards of the most popular anime, characters, staff members, and studios depending on which page you are on. Clicking on a card takes you to a page with more information about the content of the card so that you can learn more about it. </p>
+                <p>The purpose of our website is to create an easy to use and visually appealing interface for anyone from new anime fans to anime enthusiasts to learn more about anime. </p>
+                <p>Our four sources include the AniList API, the Jikan API (the unofficial API for the myanimelist website), the Google Trends API, and the Wikipedia API. The AniList API and Jikan API give us a good number of attributes to choose from for each instance. We were able to mix and match attributes from both these APIs in each of our instance pages for the character and anime instances. The Wikipedia API lets us gather a lot more information on the studios behind the anime, which felt like an important component of information for us so we added it as a fourth model type. The Google Trends API lets us take an anime, character, staff member, or studio name and find other anime-related attributes that are related to the field, which allows users to discover new things about the anime, character, staff member, or studio they are looking at. We believe that by putting together these disparate data sources, we will provide a unique experience to anime fans that isn’t offered elsewhere.</p>
+            </div>
+        
+        </div>
+
+    </div>  
+    <br>
+
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-12">
+                <h1 style="border-bottom: 2px white solid;">Team E14</h1>
+            </div>
+        
+        </div>
+    </div>  
+    <br>
+<!-- Inserting  my fade-in members here
+    <div class='container-fluid'>
+
+        <div class='member-container-left'>
+            <img class="img-thumbnail center-block" id="image1" style="margin: auto;" src="../static/images/about_page_pics/Shoyon.jpg" alt="Shoyon">
+            <div class="member-text-left">
+                <h1 class='names' id='name1' style="border-bottom: 2px white solid;">Shoyon Kermany</h1>
+                <p class='title' id='1line1'>I am from Houston, Texas. I enjoy reading books, working out, and watching Netflix.</p>
+                <p class='title' id='2line1'>Major: Electrical Engineering</p>
+                <p class='title' id='3line1'>Track: Software Engineering</p>
+                <p class='title' id='4line1'>Primary Responsibilities: Backend Developer, Documentation</p>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class='member-container-right'>
+            <div class="member-text-right">
+                <h1 class='names' id='name2' style="border-bottom: 2px white solid;">Neil Narvekar</h1>
+                <p class='title' id='1line2'>I am a 3rd year student at UT. My biggest hobby right now is watching anime! My favourite animes include Death Note, Vinland Saga, Madoka Magica, The Promised Neverland, and March Comes In like a Lion. I also like running and playing video games.</p>
+                <p class='title' id='2line2'>Major: Electrical and Computer Engineering</p>
+                <p class='title' id='3line2'>Track: Software Engineering</p>
+                <p class='title' id='4line2'>Primary Responsibilities: Back end data collection</p>
+            </div>
+            <img class="img-thumbnail center-block" id="image2" style="margin: auto;" src="../static/images/about_page_pics/Neil.JPG" alt="Neil">
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class='member-container-left'>
+            <img class="img-thumbnail center-block" id="image3" style="margin: auto;" src="../static/images/about_page_pics/Jason.jpg" alt="Jason">
+            <div class="member-text-left">
+                <h1 class='names' id='name3' style="border-bottom: 2px white solid;">Jason Siegel</h1>
+                <p class='title' id='1line3'>I’m from Austin, TX. I like to work out, go for runs and read. I’ve seen some animes, my favorites are Attack on Titan and Fullmetal Alchemist: Brotherhood. I’m looking forward to learning about frontend development while also working with subject matter thats fun and interesting.</p>
+                <p class='title' id='2line3'>Major: Electrical and Computer Engineering</p>
+                <p class='title' id='3line3'>Track: Electronics and Integrated Circuits / Software Engineering</p>
+                <p class='title' id='4line3'>Primary Responsibilities: Front-end, documentation</p>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class='member-container-right'>
+            <div class="member-text-right">
+                <h1 class='names' id='name4' style="border-bottom: 2px white solid;">Muhammed Mohaimin Sadiq</h1>
+                <p class='title' id='1line4'>I am from Karachi, Pakistan. My profession interests include software engineering, deep learning, and distributed systems. My hobbies tend to change, but currently they are reading and watching sitcoms.</p>
+                <p class='title' id='2line4'>Major: Electrical and Computer Engineering</p>
+                <p class='title' id='3line4'>Track: Software Engineering / Academic Enrichment</p>
+                <p class='title' id='4line4'>Primary Responsibilities: Front-end, documentation</p>
+            </div>
+            <img class="img-thumbnail center-block" id="image4" style="margin: auto;" src="../static/images/about_page_pics/Muhammed_Mohaimin_Sadiq.png" alt="Muhammed">
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class='member-container-left'>
+            <img class="img-thumbnail center-block" id="image5" style="margin: auto;" src="../static/images/about_page_pics/Xylon.png" alt="Xylon">
+            <div class="member-text-left">
+                <h1 class='names' id='name5' style="border-bottom: 2px white solid;">Xylon Vester</h1>
+                <p class='title' id='1line5'>I enjoy indie game development and reading about technological advances in space, IoT, artificial intelligence, virtual reality, and various other categories. I have a passion for creating things; ultimately, I would like to create something useful that has a lasting impact on humanity’s future.</p>
+                <p class='title' id='2line5'>Major: Electrical and Computer Engineering</p>
+                <p class='title' id='3line5'>Track: Software Engineering</p>
+                <p class='title' id='4line5'>Primary Responsibilities: Frontend Developer, Website Deployment</p>
+            </div>
+        </div>
+
+    </div>
+    -->
+
+
+
+
+    {% for member in team %}
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-9">
+                <h1 style="border-bottom: 2px white solid;">{{ member['name'] }}</h1>
+                <h3>Bio: </h3> <p>{{ member['bio'] }}</p>
+                <p>Major: {{ member['major'] }}</p>
+                <p>Track: {{ member['track'] }}</p>
+                <p>Primary Responsibilities: {{ member['responsibilities'] }}</p>
+            </div>
+        
+            <div class="col-3" style="align-items: center; justify-content: center; display: flex;">
+                <img src={{ member['pic'] }} class="img-thumbnail center-block" alt="my image" style="margin: auto;">
+            </div>
+
+        
+        </div>
+
+    </div>
+    <br>
+    {% endfor %}
+
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-12">
+                <h1 style="border-bottom: 2px white solid;">Other information</h1>
+                <h3>Data sources: </h3>
+                <p>AniList API: https://anilist.gitbook.io/anilist-apiv2-docs/</p>
+                <p>Jikan (unofficial MyAnimeList API): https://jikan.moe/</p>
+                <p>Pytrends (unofficial google trends API): https://pypi.org/project/pytrends/</p>
+                <p>Wikipedia API (for python): https://pypi.org/project/wikipedia/</p>
+                <p>Data was obtained through these APIs by dynamically fetching from these APIs depending on what the user clicks on. We took information from these APIs and then linked them together within our own database. We were able to use the documentation of the APIs to easily make calls to them. The Jikan, Pytrends and Wikipedia APIs came with their own python modules which allowed us to access them easily. The AniList API utilized GraphQL to query the API and return a json response type.</p>
+                <h3>Tools: </h3>
+                <p> The following software tools were used in the developement and testing of this website.</p>
+                <h4>Website Development</h4>
+                <p>We used fairly standard tools for the website itself. Flask was the Python framework that was used to build the backend of the website. Bootstrap was the frontend framework used to make our website have an aesthetically pleasing look. JavaScript (and the jQuery library) were used for creating the animated parallax backgrounds, dynamic pagination, carousels, etc. and simple CSS was used for styling.</p>
+                <h4>APIs and Databases</h4>
+                <p>Jikan and Pytrends modules allowed us to access their APIs. We used these modules by creating functions in our backend that called these modules using whatever name, character, staff member, or studio was passed, returning a dictionary of useful information that could be presented on the frontend. The Pytrends API allowed us to collect information regarding related searches for instances on our website. The Wikipedia API allowed us to get more information on the studios in particular. We used MongoDB to store documents queried from the APIs. Our searching, sorting, and filtering was implemented using the functionality provided by MongoDB.</p>
+                <h4>Testing</h4>
+                <p>For testing the backend we used Unittest, the Python testing framework. For testing the GUI we used Selenium. For testing the Javascript and jQuery code, we used the Mocha testing framework.</p>
+
+                <p>Github Link: https://github.com/UT-SWLab/TeamE14</p>
+            </div>
+        
+        </div>
+
+    </div>  
+    <br>
+
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-12">
+                <h1 style="border-bottom: 2px white solid;">Github</h1>
+                <p>Github Link: https://github.com/UT-SWLab/TeamE14</p>
+            </div>
+        
+        </div>
+
+    </div>  
+    <br>
+</body>
+    {% endblock %}

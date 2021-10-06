@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/splash.css') }}">
+    <script src="{{ url_for('static', filename='js/splash.js') }}"></script>
+    {% for n in range(32) %}
+    <link rel="preload" as="image" href="static/images/SNKSelectFrames/scene00{{143+loop.index*2}}.jpg">
+    {% endfor %}
+    {% endblock %}
+
+    {% block content %}
+    <div class='container-fluid'>
+        <div class='image-container'></div>
+        <div class='text-container'>
+            <div class='title' id='line1'>Welcome Anime Fans!</div>
+            <div class='title' id='line2'>To</div>
+            <div class='title' id='line3'>The Ultimate Anime Database</div>
+            <div class='subtitle' id='line4'>by Team E14</div>
+        </div>
+    </div>
+    <div id="carousel" class="carousel slide" data-ride="carousel" style="text-align:center; background-color: purple; padding-top: 100px; padding-bottom: 50px;">
+
+        <ul class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+            <li data-target="#carousel" data-slide-to="3"></li>
+        </ul>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="/animes">
+                    <img class="img-fluid" src="../static/images/carousel/naruto_logo.png" alt="Naruto" width="1100" height="500" >
+                </a>
+                <div class="carousel-caption">
+                    <h3>Animes</h3>
+                </div>   
+            </div>
+            <div class="carousel-item">
+                <a href="/characters">
+                    <img class="img-fluid" src="../static/images/carousel/catbus_final.png" alt="Edward" width="1100" height="300">
+                </a>
+                <div class="carousel-caption">
+                <h3>Characters</h3>
+                </div>   
+            </div>
+            <div class="carousel-item">
+                <a href="/staff">
+                    <img class="img-fluid" src="../static/images/carousel/staves.png" alt="Staff Members" width="1100" height="500">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Company Staff</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <a href="/studios">
+                    <img class="img-fluid" src="../static/images/carousel/trigger.png" alt="Studio Ghibli" width="1100" height="500">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Studios</h3>
+                </div>   
+            </div>
+
+        </div>
+
+        <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+{% endblock %}

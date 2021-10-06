@@ -1,0 +1,69 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    margin: 0;
+    /* font-family: 'Permanent Marker', fantasy; */
+  }
+  
+  .title {
+    color: purple;
+    font-family: 'Permanent Marker', fantasy;
+  }
+
+  .subtitle {
+    font-family: 'Permanent Marker', fantasy;
+  }
+  
+  .container-fluid {
+    position: relative;
+    width: 100%;
+    height: 1200px;
+  }
+  
+  .image-container{
+    width: 100%;
+    height: 100%;
+    padding-top: 56.667%;
+    position: sticky;
+    top: 0;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url('../images/SNKSelectFrames/scene00145.jpg');
+    opacity: 0.75;
+  }
+    
+    .text-container {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content:center;
+      align-items: center;
+      top: 0;
+      color: white;
+    }
+      .subtitle { 
+        opacity: 0;
+        font-size: 30px; 
+      }
+      .title { 
+        opacity: 0;
+        font-size: 80px; margin: -20px 0;
+      }
+  
+      .carousel-caption {
+        position: relative;
+        left: auto;
+        right: auto;
+    }
+  
+    .carousel,.item{
+      height:100%;
+    }
+   .carousel-inner{
+       height:100%;
+   }

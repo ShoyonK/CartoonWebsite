@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/model.css') }}">
+        <script>
+            function myFunction() {
+                alert("This has not yet been added to our database, you will be redirected to the home page");
+                document.location.href="/";
+
+            }
+        </script>
+    {% endblock %}
+
+    {% block content %}
+    <body onload="myFunction()"></body>
+    
+    {% endblock %}

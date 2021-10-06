@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/instance.css') }}">
+    {% endblock %}
+
+    {% block content %}
+
+    {% if search != 0  %}
+
+    <div class="container scrim">
+
+        <div class="row">
+            
+            <div class=" col-9">
+            
+                <h1 style="border-bottom: 2px white solid;">{{ anilist_staff['name']['full'] }} {{ anilist_staff['name']['native'] }}</h1>
+                <h3>Description: </h3> <p>{{ anilist_staff['HTMLdescription'] |safe }}</p>
+                <!-- {% if anilist_staff['parsed_description']|length > 0 %}
+                {% for i in range(anilist_staff['parsed_description']|length - 1) %}
+                    {% if i < anilist_staff['parsed_description']|length %}
+                    <p>{{ anilist_staff['parsed_description'][i][0] }} {{ anilist_staff['parsed_description'][i][1] }}</p>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %} -->
+                <p><strong>Language:</strong> {{ anilist_staff['language'] }} <br />
+                <strong>Favorites: </strong>{{ anilist_staff['favourites']}} </p>
+            </div> 
+
+            <div class="col-3" style="align-items: center; justify-content: center; display: flex;">
+                <img src={{ anilist_staff['image']['large'] }} class="img-thumbnail center-block" alt="my image" style="margin: auto;">
+            </div>
+        
+        </div>
+
+    </div>
+    
+    <br>
+
+    <div class="container text-center my-3">
+
+        <h3 class="scrim" style="color: white; border-bottom: 2px white solid;">Animes where staff member has a production role</h3>
+        <div class="row mx-auto my-auto">
+            <div id="linkingCarousel" class="carousel slide w-100" data-ride="carousel">
+                <div class="carousel-inner w-100" role="listbox">
+                {% for media in related_media %}
+                    <div class="carousel-item {% if loop.index == 1 %} active{% endif %} ">
+                        <div class="col-md-4">
+                            <div class="card card-body">
+                                <img class="card-img-top" src="{{ media['node']['coverImage']['large'] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                                <h4 class="card-title">{{ media['node']['title']['userPreferred'] }}</h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Role: {{ media['staffRole'] }}</li>
+                                </ul>
+                                <a href="/animes/{{ media['node']['idMal']}}" class="btn btn-primary">Go to {{ media['node']['title']['userPreferred'] }}'s page</a>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev w-auto" href="#linkingCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next w-auto" href="#linkingCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container text-center my-3">
+
+        <h3 class="scrim" style="color: white; border-bottom: 2px white solid;">Voice Acting Roles {{ anilist_staff['name']['full'] }}</h3>
+        <div class="row mx-auto my-auto">
+            <div id="secondLinkingCarousel" class="carousel slide w-100" data-ride="carousel">
+                <div class="carousel-inner w-100" role="listbox">
+                {% for char in related_chars %}
+                    <div class="carousel-item {% if loop.index == 1 %} active{% endif %} ">
+                        <div class="col-md-4">
+                            <div class="card card-body">
+                                <img class="card-img-top" src="{{ char['node']['image']['large'] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                                <h4 class="card-title">{{ char['node']['name']['full'] }}</h4>
+                                <a href="/characters/{{ char['node']['id'] }}" class="btn btn-primary">Go to {{ char['node']['name']['full'] }}'s page</a>
+                                <br>
+                                <!--<p class="card-text">Placeholder for potential card text</p>-->
+                                <img class="card-img-top" src="{{ char['node']['media']['nodes'][0]['coverImage']['large'] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                                <h4 class="card-title">{{ char['node']['media']['nodes'][0]['title']['english'] }}</h4>
+                                <a href="/animes/{{ char['node']['media']['nodes'][0]['idMal'] }}" class="btn btn-primary">Go to {{ char['node']['media']['nodes'][0]['title']['english']}}'s page</a>
+                           
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev w-auto" href="#secondLinkingCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next w-auto" href="#secondLinkingCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="align-items: center; display: flex;">
+        <div class="card" style="width: 18rem; ">
+            <div class="card-body">
+            <h5 class="card-title">Related searches</h5>
+            <p class="card-text">People also searched for</p>
+            </div>
+            <ul class="list-group list-group-flush">
+            {% for suggestion in suggestions_trend %}
+                <li class="list-group-item"> {{ suggestion['title'] }} </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/instance.js') }}"></script>
+    {% endblock %}

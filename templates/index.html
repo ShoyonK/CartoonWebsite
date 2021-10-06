@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+</head>
+<body>
+    <p>Hello, here we can search for anime by their name</p>
+    <p>Enter the name of an anime (ex: Naruto) to search</p>
+    <p>This is using the AniList and Jikan APIs</p>
+
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Search Anime by Title">
+    </form>
+
+    {% if anime != 0  %}
+
+    <h3>From the AniList API</h3>
+    <p>ID: {{ anilist_anime['id'] }}</p>
+    <p>Name: {{ anilist_anime['title']['english'] }}</p>
+    <p>Description: {{ anilist_anime['description'] }}</p>
+    <p>Popularity (users): {{ anilist_anime['popularity'] }}</p>
+   
+    <p>Image:</p>
+    <img src={{ anilist_anime['coverImage']['large']}} alt="my image">
+
+    <p>Chars: {{anilist_anime['characters']['edges']}}</p>
+    {% endif %}
+
+</body>
+</html>

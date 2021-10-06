@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/model.css') }}">
+    {% endblock %}
+
+    {% block content %}
+        <div class="parallax">
+            <div class="bg"></div>
+            <div class="caption">
+                <span class="border" style="background-color:transparent; font-size: 25px; color:black; opacity: 1;"> {{ about }} </span>
+            </div>
+        </div>
+        <p> this is where the grid of cards would go</p>
+        <div class="parallax">
+            <div class="bg"></div>
+        </div>
+
+
+    {% endblock %}

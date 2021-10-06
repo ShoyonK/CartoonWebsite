@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/instance.css') }}">
+    {% endblock %}
+
+    {% block content %}
+
+    {% if search != 0  %}
+    <style> 
+        body {
+            background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("{{ anilist_anime['bannerImage']}}");
+        }
+    </style> 
+    <div class="container scrim">
+
+            <div class="row">
+                
+                <div class=" col-9">
+                    <h1 style="border-bottom: 2px white solid;">{{ anilist_anime['title']['userPreferred'] }} {{ jikan_anime['title_japanese']}}</h1>
+                    <h3>Description: </h3> <p>{{ anilist_anime['description'] }}</p>
+                    <p><strong>English Title: </strong>{{ anilist_anime['title']['english'] }}</p>
+                    <p><strong>Romaji Title: </strong>{{ anilist_anime['title']['romaji'] }}</p>
+                    <p> <strong>Genres: </strong></p>
+                    {% for genre in anilist_anime['genres'] %}
+                        <p class="rounded-corners"> {{ genre }} </p>
+                    {% endfor %}
+                    <p style="clear:both"> &#9733 <strong>Score:</strong> {{ anilist_anime['meanScore'] }}</p>
+                    <p><strong>Start Date: </strong>{{ anilist_anime['startDate']['month']}}-{{ anilist_anime['startDate']['day']}}-{{ anilist_anime['startDate']['year'] }}</p>
+                    <p><strong>Episodes:</strong> {{ jikan_anime['episodes'] }}</p>
+                    <p><strong>Type:</strong> {{ jikan_anime['type']}}</p>
+                    <p><strong>Duration:</strong> {{ jikan_anime['duration']}}</p>
+                    <p><strong>Rating:</strong> {{ jikan_anime['rating']}}</p>
+                    <p><strong>Currently Airing:</strong> {{ jikan_anime['status']}}</p>
+                    <p><strong>Popularity: </strong>{{ anilist_anime['popularity'] }}</p>
+                    <p><strong>Media Format: </strong>{{ anilist_anime['format']}}</p>
+                    <p><strong>Media Source: </strong>{{ anilist_anime['source']}}</p>
+
+                </div>
+            
+                <div class="col-3" style="align-items: center; justify-content: center; display: flex;">
+                    <img src={{ anilist_anime['coverImage']['large']}} class="img-thumbnail center-block" alt="my image" style="margin: auto;">
+                </div>
+            
+            </div>
+
+    </div>
+    <br>
+    <div class="container scrim">
+        <div class="row col-12" style="align-items: left; display: flex;" >
+            <h3 style="border-bottom: 2px white solid;">Watch the trailer for {{ anilist_anime['title']['english'] }}</h3> 
+        </div>
+        <div class="row">
+        <div class="col-8" style="align-items: center; justify-content: center; display: flex">
+            <iframe width="550" height="420"
+            src= {{ jikan_anime['trailer_url'] }} >
+            </iframe>
+        </div>
+        <div class="col-4" style="align-items: center; justify-content: center; display: flex">
+            <div class="card" style="width: 18rem; background-color: black;">
+                <div class="card-body">
+                <h5 class="card-title">Studios</h5>
+                <p class="card-text">The studios involved in the production of {{ anilist_anime['title']['english'] }}</p>
+                </div>
+                <ul class="list-group list-group-flush" style="border-top: 1px solid white;">
+                {% for studio in related_studios %}
+                <li class="list-group-item" style="background-color: black;"><a href="/studios/{{ studio['node']['id'] }}">{{ studio['node']['name'] }} </a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
+        <br>
+    </div>
+    <br>
+    {% if anilist_anime['reviews']['edges']|length > 0 %}
+    <div class="container">
+        <div class="row col-12 scrim" style="align-items: left; display: flex;" >
+            <h3 style="border-bottom: 2px white solid;">Reviews (Beware of Spoilers!):</h3> 
+        </div>
+        <div class="col-12" >
+            {% for review in anilist_anime['reviews']['edges'] %}
+            <!-- <div class="col-12" style = "border:1px solid #cecece;"> </div> -->
+            <div class="review triangle scrim"> <h3> Score: {{ review['node']['score'] }} </h3> 
+                <p>{{ review['node']['summary'] }} </p>
+                <p class="collapse" id="review{{ loop.index }}">{{ review['node']['body'] }} </p>
+                <button type="button" class="btn btn-info collapsed" data-toggle="collapse" data-target="#review{{ loop.index }}"></button>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+    <br>
+    {% endif %}
+    <div class="container text-center my-3">
+
+        <h3 class="scrim" style="color: white; border-bottom: 2px white solid;">Characters and their voice actors appearing in {{ anilist_anime['title']['english'] }}</h3>
+        <div class="row mx-auto my-auto">
+            <div id="linkingCarousel" class="carousel slide w-100" data-ride="carousel">
+                <div class="carousel-inner w-100" role="listbox">
+                {% for char in related_chars %}
+                    <div class="carousel-item {% if loop.index == 1 %} active{% endif %} ">
+                        <div class="col-md-4">
+                            <div class="card card-body">
+                                <img class="card-img-top" src="{{ char['node']['image']['large'] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                                <h4 class="card-title">{{ char['node']['name']['full'] }}</h4>
+                                <!--<p class="card-text">Placeholder for potential card text</p>-->
+                                <a href="/characters/{{ char['node']['id'] }}" class="btn btn-primary">Go to {{ char['node']['name']['full'] }}'s page</a>
+                                <br />
+                                
+                                {% if char['voiceActors']|length > 0 %}
+                                    <img src={{ char['voiceActors'][0]['image']['large'] }}>
+                                    <h4 class="card-title">{{ char['voiceActors'][0]['name']['full']}}</h4>
+                                    <a href="/staff/{{ char['voiceActors'][0]['id'] }}" class="btn btn-primary">Go to {{ char['voiceActors'][0]['name']['full']}}'s page</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev w-auto" href="#linkingCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next w-auto" href="#linkingCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        
+        <br>
+
+        {% for staff in related_staff %}  
+        
+        <a href="/staff/{{ staff['node']['id'] }}">Name: {{ staff['node']['name']['full'] }}</a>
+        <p>Role: {{ staff['role'] }} </p>
+        <img src={{ staff['node']['image']['medium'] }}>
+        <br>
+        {% endfor %}
+
+        <!-- <div class="row">
+        {% for char in related_chars %}
+            <div class="col-auto mb-3">
+                <div class="card" style="width: 14rem;">
+                    <img class="card-img-top" src="{{ char['node']['image']['medium'] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ char['node']['name']['full'] }}</h4> -->
+                        <!--<p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>-->
+                        <!-- <a href="/characters/{{ char['node']['id'] }}" class="btn btn-primary stretched-link">Go to {{ char['node']['name']['full'] }}'s page</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div> -->
+    </div>
+
+    <div class="container" style="align-items: center; display: flex;">
+        <div class="card" style="width: 18rem; ">
+            <div class="card-body">
+            <h5 class="card-title">Related searches</h5>
+            <p class="card-text">People also searched for</p>
+            </div>
+            <ul class="list-group list-group-flush">
+            {% for suggestion in suggestions_trend %}
+                <li class="list-group-item"> {{ suggestion['title'] }} </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+
+    </div>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/instance.js') }}"></script>
+
+    {% endblock %}
+

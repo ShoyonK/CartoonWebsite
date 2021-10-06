@@ -1,0 +1,124 @@
+  body, html {
+    height: 100%;
+    padding-top: 65px;
+}
+
+.parallax {
+    height: 100%;
+}
+
+body {
+    /* background-image: url("https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2020%2F04%2Fstudio-ghibli-free-wallpaper-download-info-01.jpg?q=90&w=1400&cbr=1&fit=max"); */
+    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2020%2F04%2Fstudio-ghibli-free-wallpaper-download-info-01.jpg?q=90&w=1400&cbr=1&fit=max");
+    height: 100%;
+  
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+
+  body#about {
+    /* background-image: url("https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2020%2F04%2Fstudio-ghibli-free-wallpaper-download-info-01.jpg?q=90&w=1400&cbr=1&fit=max"); */
+    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("https://cutewallpaper.org/21/dark-anime-pics/Download-Dark-Anime-Backgrounds-,-High-quality-wallpaper-for-.jpg");
+    height: 100%;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+
+  .scrim {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 0 5rem rgba(0, 0, 0.5); */
+  }
+
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* display 3 */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(33.333%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-33.333%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}
+
+
+/* Speech bubbles for reviews */
+.review {
+  margin: 50px auto;
+  padding: 20px;
+  color: white;
+  position:relative;
+}
+
+
+.triangle:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid  rgba(0, 0, 0, 0.5);
+  border-top: 10px solid  rgba(0, 0, 0, 0.5);
+  border-bottom: 10px solid transparent;
+  left: -19px;
+  top: 6px;
+}
+
+/* Collapsible review button on anime instance pages changes content on click*/
+.review button.collapsed:after {
+  content: 'Show More';
+}
+
+.review button:not(.collapsed):after {
+  content: 'Show Less';
+}
+
+/* Collapsible spoiler descriptions button on character instance pages changes content on click */
+#description button.collapsed:after {
+  content: 'Show Spoiler';
+}
+
+#description button:not(.collapsed):after {
+  content: 'Hide Spoiler';
+}
+
+/* Genre boxes */
+.rounded-corners {
+  border-radius: 25px;
+  border: 2px solid white;
+  text-align: center;
+  padding: 5px; 
+  float: left;
+}
+

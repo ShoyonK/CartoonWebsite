@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/instance.css') }}">
+    {% endblock %}
+
+    {% block content %}
+        <div class="parallax"></div>
+
+        <h1>Placeholder for {{ instance }}</h1>
+    {% endblock %}

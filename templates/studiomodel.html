@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/model.css') }}">
+    {% endblock %}
+
+    {% block content %}
+
+    <!-- <p>popular stuff, 5 popular. this is using the large key, but use the 'medium' key for a smaller image</p>
+    {% for studio in popularList %}
+    <a href="/studios/{{ studio['name'] }}">{{ studio['name'] }} </a>
+    <br>
+
+
+    {% endfor %} -->
+
+<body id="studiomodel">
+    <div class="container text-center my-3">
+        <div class="container scrim">
+            <h1 style="border-bottom: 2px white solid;">Studios</h1>
+            <p>The best anime studios are the ones that present us with high quality content year after year. These animation studios play a huge role in how anime is adapted from its source material to animation. Studios each present their own unique style of animation to bring their stories to life.</p>
+        </div>
+        <h1 class="scrim" style="color: white; border-bottom: 2px white solid;">Popular Studios</h1>
+
+        <ul class="pagination justify-content-center" data-page-size="9">
+            <li class="page-item"><a class="page-link" href="#" rel="prev">Prev</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" rel="next">Next</a></li>
+        </ul>
+    </div>
+
+    <div class="container text-center mt-3">
+        <div class="row" >
+            <div class="card-deck" style="align-items: center; justify-content: center; display: flex;">
+                {% for studio in popularList %}
+                <div class="card mb-4" style="min-width: 22rem; max-width: 22rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{ studio['images'][0] }}" style = "width: 100%; height: 22rem;" alt="Card image">
+                        <h4 class="card-title">{{ studio['name'] }}</h4>
+                        <a href="/studios/{{ studio['id'] }}" class="btn btn-primary stretched-link">Learn More</a>
+                        <!--<a href="/studios/{{ studio['id'] }}" class="btn btn-primary stretched-link">Go to {{ studio['name'] }}'s page</a>-->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- <p>Search for page of studios</p>
+    <p>Enter the name of a studio (ex: Bones) to search</p>
+
+    <form action="/studios" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Search Animes">
+    </form> -->
+
+    {% if search != 0  %}
+
+    {% for studio in studioList %}
+    <a href="/studios/{{ studio['name'] }}">{{ studio['name'] }} </a>
+    <br>
+
+    {% endfor %}
+   
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/model.js') }}"></script>
+</body>
+    {% endblock %}

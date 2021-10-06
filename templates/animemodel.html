@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/model.css') }}">
+    {% endblock %}
+
+    {% block content %}
+
+    <!-- <p>Search for page of anime</p>
+    <p>Enter the name of an anime (ex: Naruto) to search</p>
+    <form action="/animes" method="POST">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Search Animes">
+    </form> -->
+<body id="animemodel">
+    <div class="container text-center my-3">
+        <div class="container scrim">
+            <h1 style="border-bottom: 2px white solid;">Animes</h1>
+            <p>Anime is a broad term that refers to media represented by a distinct, Japanese animation style, especially in the context of a tv show or movie.  There are a broad range of genres, styles, stories, and concepts explored, making it an extrememly varried and diverse medium.  Have fun exploring the medium, we're sure you'll find something you like!</p>
+        </div>
+
+
+        <!-- <h3>Search for anime</h3> -->
+        <!-- <div class="container"> -->
+            <div class="searchbar">
+        <form action="/animes" method="POST">
+            <div class="search_wrap">
+            <input type="text" placeholder="Search.." name="search_string" value="{{search_string}}" id="anime_search_term">
+            <input type="submit" value="Search Animes" id="animesearchbutton">
+            </div>
+            <br>
+            <div class="searchbar_div">
+            <!-- <label for="sort">Sort by:</label> -->
+            <select name="sort">
+            {% for sort in sorts %}
+            <option value="{{ sort[0] }}" {% if sort[0] == sort_method %} selected {% endif %}>{{ sort[1] }}</option>
+            {% endfor %}
+            </select>
+            </div>
+            <br>
+            <br>
+            <div class="dropdown searchbar_div" data-dropup-auto="false">
+                <button data-display="static" class="btn btn-secondary dropdown-toggle" type="button" 
+                        id="dropdownMenu1" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                  Genre
+                </button>
+                <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                {% for genre,remember in genres %}
+                  <li >
+                    <label>
+                      <input type="checkbox" name="genre[]" value="{{genre}}" {% if (remember == 1) %} checked {% endif %}> {{genre}}
+                      <span class="checkmark"></span>
+                    </label>
+                  </li>
+                {% endfor %}  
+                </ul>
+            </div>
+
+            <div class="dropdown searchbar_div" data-dropup-auto="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" 
+                        id="dropdownMenu1" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="true">
+                <span class="caret"></span>
+                Media Formats
+                </button>
+                <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                {% for media_format,remember in media_formats %}
+                <li >
+                    <label>
+                    <input type="checkbox" name="media_formats" value="{{media_format[0]}}" {% if (remember == 1) %} checked {% endif %}> {{media_format[1]}}
+                    <span class="checkmark"></span>
+                    </label>
+                </li>
+                {% endfor %}  
+                </ul>
+            </div>
+
+            <div class="dropdown searchbar_div" data-dropup-auto="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" 
+                        id="dropdownMenu1" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="true">
+                <span class="caret"></span>
+                Media Sources
+                </button>
+                <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                {% for media_source, remember in media_sources %}
+                <li >
+                    <label>
+                    <input type="checkbox" name="media_sources" value="{{media_source[0]}}"{% if (remember == 1) %} checked {% endif %}> {{media_source[1]}}
+                    <span class="checkmark"></span>
+                    </label>
+                </li>
+                {% endfor %}  
+                </ul>
+            </div>
+
+            <div class="slidecontainer searchbar_div">
+                <input type="range" min="0" max="100" value="{{score_filter}}" class="slider" id="myRange" name="score">
+                <p>Score at least: <span id="demo"></span></p>
+            </div>
+            
+            <script>
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value; // Display the default slider value
+
+            // Update the current slider value (each time you drag the slider handle)
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+            }
+            </script>
+        </form>
+        </div>
+        <!-- </div> -->
+        <br>
+    
+        <!--- <h1 class="scrim" style="color: white; border-bottom: 2px white solid;">Popular Animes</h1> --->
+        <p style="clear:both"></p>
+        <ul class="pagination justify-content-center" data-page-size="9">
+            <li class="page-item"><a class="page-link" href="#" rel="prev">Prev</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" rel="next">Next</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container text-center mt-3">
+        <div class="row" >
+            <div class="card-deck" style="align-items: center; justify-content: center; display: flex;">
+                {% for anime in popularList %}
+                <div class="card mb-4" style="min-width: 22rem; max-width: 22rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{ anime['coverImage']['large'] }}" style="width: 100%; height: 22rem;" alt="Card image">
+                        <h4 class="card-title" style="height:83px; justify-content: center; align-items: center; display: flex;">{{ anime['title']['userPreferred'] }}</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" style="height:73px; align-items: center; display: flex;">Genres: {{ anime['genres'] }}</li>
+                            <li class="list-group-item">Score: {{ anime['meanScore'] }}</li>
+                            <li class="list-group-item">Start Date: {{ anime['startDate']['month']}}-{{ anime['startDate']['day']}}-{{ anime['startDate']['year'] }}</li>
+                        </ul>
+                        <a href="/animes/{{ anime['idMal'] }}" class="btn btn-primary stretched-link">Learn More</a>
+                        <!--<a href="/animes/{{ anime['idMal'] }}" class="btn btn-primary stretched-link">Go to {{ anime['title']['english'] }}'s page</a>-->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/model.js') }}"></script>
+
+
+</body>
+    {% endblock %}
